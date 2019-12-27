@@ -1,0 +1,34 @@
+<div>
+    <!-- search box -->
+    <div class="ui-g ui-fluid mybox">
+        <div class="ui-g-12 ui-md-3 ui-lg-3">
+            <div class="ui-inputgroup ">
+                <input type="text" pInputText [(ngModel)]="searechedItemText" placeholder="Type here to search" />
+            </div>
+        </div>
+    </div>
+    <!-- User table data -->
+    <p-table [value]="receivedRawData | filter:searechedItemText">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>UserId</th>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Comment</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-userComments>
+            <tr (click)="showModal(userComments)">
+                <td>{{userComments.userId}}</td>
+                <td>{{userComments.id}}</td>
+                <td>{{userComments.title}}</td>
+                <td>{{userComments.body}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<!-- model popup -->
+<p-dialog header="User Selected Data" [(visible)]="flag" [dismissableMask]="flag" [modal]="true"
+    [style]="{width: '300px'}">
+    {{ usersData | json }}
+</p-dialog>
